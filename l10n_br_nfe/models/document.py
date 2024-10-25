@@ -853,7 +853,9 @@ class NFe(spec_models.StackedModel):
                 key_date_str = rec.document_key[2:6]
                 key_date = datetime.strptime(key_date_str, "%y%m")
 
-                document_date = fields.Datetime.from_string(rec.document_date)
+                document_date = fields.Datetime.context_timestamp(
+                    rec, rec.document_date
+                )
                 if (
                     rec.document_type in ["55", "65"]
                     and rec.state_edoc in ["a_enviar", "autorizada"]
