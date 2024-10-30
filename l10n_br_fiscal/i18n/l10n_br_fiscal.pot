@@ -3337,6 +3337,17 @@ msgid "Fiscal Quantity"
 msgstr ""
 
 #. module: l10n_br_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_br_fiscal.tax_definition_form
+msgid "Fiscal Service Type"
+msgstr ""
+
+#. module: l10n_br_fiscal
+#: model:ir.model.fields,field_description:l10n_br_fiscal.field_l10n_br_fiscal_tax_definition__service_type_ids
+#: model_terms:ir.ui.view,arch_db:l10n_br_fiscal.tax_definition_form
+msgid "Fiscal Service Types"
+msgstr ""
+
+#. module: l10n_br_fiscal
 #: model:ir.model,name:l10n_br_fiscal.model_l10n_br_fiscal_tax
 msgid "Fiscal Tax"
 msgstr ""
