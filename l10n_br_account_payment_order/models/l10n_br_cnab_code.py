@@ -20,7 +20,6 @@ class L10nBrCNABCode(models.Model):
     code = fields.Char(
         index=True,
         tracking=True,
-        required=True,
     )
 
     code_type = fields.Selection(
