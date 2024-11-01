@@ -105,43 +105,45 @@ class L10nBrCNABCode(models.Model):
                 record.payment_method_ids and record.payment_method_ids[0] or False
             )
 
-    @api.constrains("code")
-    def check_code(self):
-        for record in self:
-            # Mesmo o record que está sendo alterado não ter sido ainda salvo
-            # a pesquisa acaba trazendo ele, por isso o filtro 'id'
-            code_already_exist = record.search(
-                [
-                    ("id", "!=", record.id),
-                    ("code", "=", record.code),
-                    ("code_type", "=", record.code_type),
-                    ("payment_method_ids", "in", record.payment_method_ids.ids),
-                    ("bank_ids", "in", record.bank_ids.ids),
-                ]
-            )
-            if code_already_exist:
-                code_name_exist = (
-                    code_already_exist.code + " - " + code_already_exist.name
-                )
-                raise ValidationError(
-                    _(
-                        "The Code %s already exist %s for Bank %s and CNAB %s type.",
-                        record.code,
-                        code_name_exist,
-                        code_already_exist.bank_id.name,
-                        code_already_exist.payment_method_id.code,
-                    )
-                )
+    # TODO Uncomment this validations after the update
+    # is successfull
+    # @api.constrains("code")
+    # def check_code(self):
+    #     for record in self:
+    #         # Mesmo o record que está sendo alterado não ter sido ainda salvo
+    #         # a pesquisa acaba trazendo ele, por isso o filtro 'id'
+    #         code_already_exist = record.search(
+    #             [
+    #                 ("id", "!=", record.id),
+    #                 ("code", "=", record.code),
+    #                 ("code_type", "=", record.code_type),
+    #                 ("payment_method_ids", "in", record.payment_method_ids.ids),
+    #                 ("bank_ids", "in", record.bank_ids.ids),
+    #             ]
+    #         )
+    #         if code_already_exist:
+    #             code_name_exist = (
+    #                 code_already_exist.code + " - " + code_already_exist.name
+    #             )
+    #             raise ValidationError(
+    #                 _(
+    #                     "The Code %s already exist %s for Bank %s and CNAB %s type.",
+    #                     record.code,
+    #                     code_name_exist,
+    #                     code_already_exist.bank_id.name,
+    #                     code_already_exist.payment_method_id.code,
+    #                 )
+    #             )
 
             # Tamanho do campo é padrão 2 p/ todos
             # os codigos de Instrução CNAB ?
-            if len(record.code) != 2 and record.code_type in (
-                "instruction_move_code",
-                "return_move_code",
-            ):
-                raise ValidationError(
-                    _(
-                        "The field Code in 'Instruction and Return Move Code'"
-                        " should have two characters."
-                    )
-                )
+            # if len(record.code) != 2 and record.code_type in (
+            #     "instruction_move_code",
+            #     "return_move_code",
+            # ):
+            #     raise ValidationError(
+            #         _(
+            #             "The field Code in 'Instruction and Return Move Code'"
+            #             " should have two characters."
+            #         )
+            #     )
